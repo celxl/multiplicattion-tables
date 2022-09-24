@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    </head>
+    <body>
+        <nav class="navbar navbar-light bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand text-success">Tablas de multiplicaci&oacute;n | Juega y aprende</a>
+                <form class="d-flex" id="initializator-form" >
+                    <input class="form-control me-2" name="size" type="number" id="combo-size" min="2" max="9" required title="Escribe un n&uacute;mero entre 2 y 9">
+                    <button class="btn btn-outline-success" type="submit" id="play-btn" title="Haz click aqui para crear las tablas">Juega</button>
+                </form>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <form id="playground-form">
+                        <!--
+                            this is example of what will be generated
+                            <div class="row mt-2">
+                            <div class="col-4">
+                            <div class="input-group">
+                                <input type="number" class="form-control">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">X</span>
+                                </div>
+                                <input type="number" class="form-control form-control-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">=</span>
+                                </div>
+                                <input type="number" class="form-control">
+                            </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="input-group">
+                                    <input type="number" class="form-control">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">X</span>
+                                    </div>
+                                    <input type="number" class="form-control form-control-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">=</span>
+                                    </div>
+                                    <input type="number" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="input-group">
+                                    <input type="number" class="form-control">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">X</span>
+                                    </div>
+                                    <input type="number" class="form-control form-control-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">=</span>
+                                    </div>
+                                    <input type="number" class="form-control">
+                                </div>
+                                </div>
+                            <div class="col-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                            <div class="input-group">
+                                <input type="number" class="form-control">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">X</span>
+                                </div>
+                                <input type="number" class="form-control form-control-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">=</span>
+                                </div>
+                                <input type="number" class="form-control">
+                            </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="input-group">
+                                    <input type="number" class="form-control">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">X</span>
+                                    </div>
+                                    <input type="number" class="form-control form-control-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">=</span>
+                                    </div>
+                                    <input type="number" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="input-group">
+                                    <input type="number" class="form-control">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">X</span>
+                                    </div>
+                                    <input type="number" class="form-control form-control-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">=</span>
+                                    </div>
+                                    <input type="number" class="form-control">
+                                </div>
+                                </div>
+                            <div class="col-4">
+                            </div>
+                        </div>
+                        -->
+                        
+                        <div id="playgound-section"></div>
+                        <div class="col-12 mt-2">
+                            <button type="submit" class="btn btn-primary">Verifica</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+        <script>
+            const combinations = (size) => {
+                let combs = [] ;
+                for (let i = 2; i <= size ; i++) {
+                    for (let j = 1; j <= 9; j++) {
+                        combs.push([i,j,i*j]) ;
+                    }
+                }
+                return combs ;
+            };
+
+            const numberInput = (value = null) => {
+                if(value)
+                    return `<input type="number" class="form-control" value="${value}" ${(value)? "disabled": "required"}>` ;
+                
+                return `<input type="number" class="form-control"  ${(value)? "disabled": "required"}>` ;
+            };
+
+            const operator = (isEqual = true) => {
+                return `<div class="input-group-prepend">
+                            <span class="input-group-text">${(isEqual)? "=": "X"}</span>
+                        </div>`
+            };
+
+            const inputGroup = (number1, number2, number3) => {
+                /*
+                * TODO: missing validations for method params
+                */
+                let div = $(`<div class="input-group"></div>`) ;
+                div.append(number1) ;
+                div.append(operator(false)) ;
+                div.append(number2) ;
+                div.append(operator()) ;
+                div.append(number3) ;
+                return div ;
+            };
+
+            const groupCol = (id, inputGroup) => {
+                /*
+                * TODO: missing validations for method params
+                */
+                let div = $(`<div id="${id}" class="col-4"></div>`) ;
+                div.append(inputGroup) ;
+                return div ;
+            }
+
+            const row = (col1, col2, col3) => {
+                /*
+                * TODO: missing validations for method params
+                */
+                let div = $(`<div class="row mt-2"></div>`) ;
+                (col1) && div.append(col1) ;
+                (col2) && div.append(col2) ;
+                (col3) && div.append(col3) ;
+                return div ;
+            }
+            
+            function randomizeCombo(combMap,inUse = []) {
+                let allPos = Object.keys(combMap) ;
+                let onHold = allPos.filter(pos => !new Set(inUse).has(pos)) ;
+                let randomIndex = Math.floor(Math.random() * onHold.length) ;
+                return onHold[randomIndex] ;
+            }
+
+            function createPlaygroundColums(combMap) {
+                const
+                    colums = [], 
+                    inUse = [] ;
+                
+                for (let i = 0; i < Object.keys(combMap).length; i++) {
+                    const 
+                        hidePosition = Math.floor(Math.random()* 3 ),
+                        multiplicationId = randomizeCombo(combMap,inUse),
+                        number1 = (hidePosition == 0)? numberInput() : numberInput(combMap[multiplicationId][0]),
+                        number2 = (hidePosition == 1)? numberInput() : numberInput(combMap[multiplicationId][1]),
+                        number3 = (hidePosition == 2)? numberInput() : numberInput(combMap[multiplicationId][2]),
+                        inputGroupElement = inputGroup(number1, number2, number3),
+                        groupColElement = groupCol(multiplicationId,inputGroupElement);
+                    
+                    inUse.push(multiplicationId) ;
+
+                    colums.push(groupColElement) ;
+                }
+                return colums ;
+            }
+
+            $(document).ready(()=>{
+                let combObject = {} ;
+                //build the products area
+                $('#initializator-form').submit((e) =>{
+                    e.preventDefault() ;
+                    let playgroundSection = $('#playgound-section') ;
+                    playgroundSection.children().remove();
+                    let size = $('#combo-size').val();
+                    let combs = combinations(parseInt(size)) ;
+                    combObject = [...combs] ;
+                    let colums = createPlaygroundColums(combObject) ;
+                    
+                    for (let i = 0; i < colums.length; i+=3) {
+                        const rowElement = row(colums[i],colums[i+1], colums[i+2]) ;
+                        playgroundSection.append(rowElement) ;
+                    }
+                });
+
+                //verify results
+                $('#playground-form').submit((e) => {
+                    e.preventDefault() ;
+                    let playGroundComums = $('#playgound-section .col-4').get() ;
+                    (playGroundComums.length == 0) && (alert('Primero debes darle al boton jugar')) ;
+                    let correct = 0 ;
+                    let wrong = 0 ;
+                    for (const col of playGroundComums) {
+                        const inputs = $(`#${col.id} input`).get();
+                        const values = [] ;
+
+                        for (const input of inputs) {
+                            values.push(input.value) ;
+                        }
+                        $(`#${col.id}`).removeClass('bg-danger') ;
+                        $(`#${col.id}`).removeClass('bg-success') ;
+
+                        if(values.toString() != combObject[col.id].toString()){
+                            $(`#${col.id}`).addClass('bg-danger') ;
+                            wrong++ ;
+                        }
+                        else{
+                            $(`#${col.id}`).addClass('bg-success') ;
+                            correct ++
+                        }
+                    }
+
+                    alert(`Bien: ${correct}, Mal: ${wrong}, Total: ${playGroundComums.length}`) ;
+                    
+                })
+            })
+        </script>
+    </body>
+</html>
