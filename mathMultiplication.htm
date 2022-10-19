@@ -124,7 +124,7 @@
             const combinations = (size) => {
                 let combs = [] ;
                 for (let i = 2; i <= size ; i++) {
-                    for (let j = 1; j <= 9; j++) {
+                    for (let j = 1+i; j <= 9; j++) {
                         combs.push([i,j,i*j]) ;
                     }
                 }
